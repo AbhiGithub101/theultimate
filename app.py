@@ -29,7 +29,7 @@ if search:
     # Optional: Use regex to clean/validate/format the search query
     match = re.match(r"^(.*?)\s*\(", search)
     movie_title = match.group(1) if match else search  # Use the cleaned title if regex matched, otherwise use the raw search
-
+    
     # Parameterized query to prevent SQL injection
     query = text("SELECT * FROM dbo.movies WHERE title = :title")
 
