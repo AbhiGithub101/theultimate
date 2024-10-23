@@ -1,2 +1,4 @@
 sqlalchemy
 pyodbc
+movieposters
+wikipedia
