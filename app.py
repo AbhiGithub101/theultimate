@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 import movieposters as mp
 import urllib
 import wikipedia
+from datetime import datetime
 import re
 
 # Set up SQL Server connection
@@ -49,8 +50,19 @@ if search:
                 with col2:
                     st.write(wikipedia.summary(movie_title))
                 query = text("SELECT * FROM dbo.reviews WHERE title = :title")
-                df = pd.read_sql_query(query, conn, params={"title": movie_title})
-                st.write("### Movies Data", df)
+                # review_df = pd.read_sql_query(query, conn, params={"title": movie_title})
+                # st.write("### Movies Data", review_df)
+                user_id = st.number_input('User ID : ')
+                rating = st.slider('Rate This Movie',1,5)
+                review = st.text_area('How did you like it ? ')
+                movieID = df.loc[ df['title']==search,'movieId' ].values
+                genres = df.loc[df['title']==search,'genres']
+                timestamp = datetime.now()
+                st.write(timestamp)
+                if(st.button('Submit')):
+                    print(f'You reviewed {movie_title}')
+
+
             else:
                 st.warning("No matching movies found.")
     except Exception as e:
